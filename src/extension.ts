@@ -7,6 +7,16 @@ import simpleGit, { SimpleGit } from 'simple-git';
 const outputChannel = vscode.window.createOutputChannel('Copy GitHub Link');
 
 export function activate(context: vscode.ExtensionContext) {
+	// Print extension version and release info
+	const extension = vscode.extensions.getExtension('XiaochenCui.copy-github-link');
+	if (extension) {
+		const version = extension.packageJSON.version;
+		const releaseDate = extension.packageJSON.releaseDate || 'Unknown';
+		outputChannel.appendLine(`Copy GitHub Link Extension v${version} activated`);
+		outputChannel.appendLine(`Release Date: ${releaseDate}`);
+		outputChannel.appendLine('---');
+	}
+
 	const disposableCopy = vscode.commands.registerCommand('copy-github-link.copyGitHubLink', () => {
 		// outputChannel.show();
 
