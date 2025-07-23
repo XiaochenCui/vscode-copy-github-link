@@ -89,11 +89,13 @@ async function getGitHubLink(): Promise<string> {
 	var lineNumberRange: [number, number][] = [];
 	var headCommit = "";
 	try {
-		const content = await git.raw([
-			'remote',
-			'show',
-			remoteName
-		]);
+		const gitCommand = ['remote', 'show', remoteName];
+		outputChannel.appendLine(`Executing git command: git ${gitCommand.join(' ')}`);
+		outputChannel.appendLine(`Working directory: ${process.cwd()}`);
+		outputChannel.appendLine(`Remote name: ${remoteName}`);
+		outputChannel.appendLine(`Remote URL: ${remoteUrl}`);
+		
+		const content = await git.raw(gitCommand);
 
 		// example match: "HEAD branch: master"
 		const headBranchMatch = content.match(/HEAD branch: (.+)/);
